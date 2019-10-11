@@ -1,0 +1,11 @@
+apply plugin: 'java'
+
+dependencies {
+    compile 'com.squareup.retrofit2:retrofit:2.6.1'
+    compile 'com.squareup.retrofit2:converter-jackson:2.6.1'
+    compile 'com.squareup.okhttp3:okhttp:4.1.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    compile 'org.springframework:spring-context:5.1.9.RELEASE'
+    compile 'org.springframework.boot:spring-boot-autoconfigure:2.1.7.RELEASE'
+    compile 'org.springframework.cloud:spring-cloud-context:2.1.1.RELEASE'
+}
