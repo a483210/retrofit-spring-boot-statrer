@@ -1,4 +1,4 @@
-package com.mnazareno.retrofit.springboot.sample;
+package com.mnazareno.retrofit.springboot.sample.model;
 
 public class Contributor {
     private String login;

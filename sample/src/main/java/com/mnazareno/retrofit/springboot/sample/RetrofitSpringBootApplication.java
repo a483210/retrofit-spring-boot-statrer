@@ -1,5 +1,8 @@
 package com.mnazareno.retrofit.springboot.sample;
 
+import com.mnazareno.retrofit.springboot.sample.cleint.GithubApi;
+import com.mnazareno.retrofit.springboot.sample.model.Contributor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

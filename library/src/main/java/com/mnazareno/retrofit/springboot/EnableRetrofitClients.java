@@ -16,6 +16,7 @@
 
 package com.mnazareno.retrofit.springboot;
 
+import com.mnazareno.retrofit.springboot.RetrofitAutoConfiguration.DefaultRetrofitClientConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.Documented;
@@ -40,52 +41,52 @@ import java.lang.annotation.Target;
 @Import(RetrofitClientsRegistrar.class)
 public @interface EnableRetrofitClients {
 
-	/**
-	 * Alias for the {@link #basePackages()} attribute. Allows for more concise annotation
-	 * declarations e.g.: {@code @ComponentScan("org.my.pkg")} instead of
-	 * {@code @ComponentScan(basePackages="org.my.pkg")}.
-	 *
-	 * @return the array of 'basePackages'.
-	 */
-	String[] value() default {};
+    /**
+     * Alias for the {@link #basePackages()} attribute. Allows for more concise annotation
+     * declarations e.g.: {@code @ComponentScan("org.my.pkg")} instead of
+     * {@code @ComponentScan(basePackages="org.my.pkg")}.
+     *
+     * @return the array of 'basePackages'.
+     */
+    String[] value() default {};
 
-	/**
-	 * Base packages to scan for annotated components.
-	 * <p>
-	 * <p>
-	 * {@link #value()} is an alias for (and mutually exclusive with) this attribute.
-	 * <p>
-	 * <p>
-	 * Use {@link #basePackageClasses()} for a type-safe alternative to String-based
-	 * package names.
-	 *
-	 * @return the array of 'basePackages'.
-	 */
-	String[] basePackages() default {};
+    /**
+     * Base packages to scan for annotated components.
+     * <p>
+     * <p>
+     * {@link #value()} is an alias for (and mutually exclusive with) this attribute.
+     * <p>
+     * <p>
+     * Use {@link #basePackageClasses()} for a type-safe alternative to String-based
+     * package names.
+     *
+     * @return the array of 'basePackages'.
+     */
+    String[] basePackages() default {};
 
-	/**
-	 * Type-safe alternative to {@link #basePackages()} for specifying the packages to
-	 * scan for annotated components. The package of each class specified will be scanned.
-	 * <p>
-	 * <p>
-	 * Consider creating a special no-op marker class or interface in each package that
-	 * serves no purpose other than being referenced by this attribute.
-	 *
-	 * @return the array of 'basePackageClasses'.
-	 */
-	Class<?>[] basePackageClasses() default {};
+    /**
+     * Type-safe alternative to {@link #basePackages()} for specifying the packages to
+     * scan for annotated components. The package of each class specified will be scanned.
+     * <p>
+     * <p>
+     * Consider creating a special no-op marker class or interface in each package that
+     * serves no purpose other than being referenced by this attribute.
+     *
+     * @return the array of 'basePackageClasses'.
+     */
+    Class<?>[] basePackageClasses() default {};
 
-	/**
-	 * A custom <code>@Configuration</code> for all clients. Can contain override
-	 * <code>@Bean</code> definition for the pieces that make up the client.
-	 *
-	 * @see DefaultRetrofitClientConfiguration for the defaults
-	 */
-	Class<?>[] defaultConfiguration() default {};
+    /**
+     * A custom <code>@Configuration</code> for all clients. Can contain override
+     * <code>@Bean</code> definition for the pieces that make up the client.
+     *
+     * @see DefaultRetrofitClientConfiguration for the defaults
+     */
+    Class<?>[] defaultConfiguration() default {};
 
-	/**
-	 * List of classes annotated with @RetrofitClient. If not empty, disables classpath
-	 * scanning.
-	 */
-	Class<?>[] clients() default {};
+    /**
+     * List of classes annotated with @RetrofitClient. If not empty, disables classpath
+     * scanning.
+     */
+    Class<?>[] clients() default {};
 }

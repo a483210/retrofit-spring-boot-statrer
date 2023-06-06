@@ -1,18 +1,34 @@
 buildscript {
+
+    ext {
+        springBootVersion = "2.7.12"
+        springCloudVersion = "2021.0.7"
+        retrofitVersion = "2.9.0"
+    }
+
     repositories {
         mavenCentral()
-        maven { url "http://47.96.80.140:8081/nexus/content/repositories/snapshots/" }
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
     }
 }
 
 allprojects {
     repositories {
         mavenCentral()
-        maven { url "http://47.96.80.140:8081/nexus/content/repositories/snapshots/" }
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
+subprojects {
+    apply plugin: "idea"
+    apply plugin: "io.spring.dependency-management"
 
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+        }
+    }
+}

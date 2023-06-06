@@ -6,8 +6,10 @@ import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
+import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.ClassUtils;
@@ -17,7 +19,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class RetrofitClientsRegistrar implements ImportBeanDefinitionRegistrar {
+public class RetrofitClientsRegistrar implements ImportBeanDefinitionRegistrar, EnvironmentAware {
+
+    private Environment environment;
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata metadata,
@@ -48,21 +57,28 @@ public class RetrofitClientsRegistrar implements ImportBeanDefinitionRegistrar {
                         return;
                     }
 
-                    String name = attributes.get("name").toString();
+                    String name = resolve((String) attributes.get("name"));
+                    String baseUrl = resolve((String) attributes.get("baseUrl"));
 
                     BeanDefinitionBuilder retrofitClientFactoryBeanBuilder = BeanDefinitionBuilder
                             .genericBeanDefinition(RetrofitClientFactoryBean.class);
                     retrofitClientFactoryBeanBuilder.addPropertyValue("type",
                             beanDefinition.getBeanClassName());
                     retrofitClientFactoryBeanBuilder.addPropertyValue("name", name);
-                    retrofitClientFactoryBeanBuilder.addPropertyValue("baseUrl",
-                            attributes.get("baseUrl"));
+                    retrofitClientFactoryBeanBuilder.addPropertyValue("baseUrl", baseUrl);
 
                     registerClientConfiguration(registry, name,
                             attributes.get("configuration"));
                     registry.registerBeanDefinition(name,
                             retrofitClientFactoryBeanBuilder.getBeanDefinition());
                 });
+    }
+
+    private String resolve(String value) {
+        if (StringUtils.hasText(value)) {
+            return this.environment.resolvePlaceholders(value);
+        }
+        return value;
     }
 
     private void registerClientConfiguration(BeanDefinitionRegistry registry, Object name,

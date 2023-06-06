@@ -17,7 +17,7 @@ import retrofit2.CallAdapter;
 @Configuration
 public class RetrofitConfig {
 
-    public static final long DEFAULT_TIMEOUT = 15 * 1000;
+    public static final long DEFAULT_TIMEOUT = 15 * 1000L;
 
     @Bean
     public OkHttpClient createOkHttpClient() {

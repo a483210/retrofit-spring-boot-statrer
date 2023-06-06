@@ -4,22 +4,22 @@ import org.springframework.cloud.context.named.NamedContextFactory;
 
 public class RetrofitClientSpecification implements NamedContextFactory.Specification {
 
-	private String name;
+    private final String name;
 
-	private Class<?>[] configs;
+    private final Class<?>[] configs;
 
-	public RetrofitClientSpecification(String name, Class<?>[] configs) {
-		this.name = name;
-		this.configs = configs;
-	}
+    public RetrofitClientSpecification(String name, Class<?>[] configs) {
+        this.name = name;
+        this.configs = configs;
+    }
 
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-	@Override
-	public Class<?>[] getConfiguration() {
-		return this.configs;
-	}
+    @Override
+    public Class<?>[] getConfiguration() {
+        return this.configs;
+    }
 }
