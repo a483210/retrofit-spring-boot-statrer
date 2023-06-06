@@ -4,6 +4,8 @@ buildscript {
         springBootVersion = "2.7.12"
         springCloudVersion = "2021.0.7"
         retrofitVersion = "2.9.0"
+
+        mavenPublishVersion = "0.25.1"
     }
 
     repositories {
@@ -12,6 +14,7 @@ buildscript {
 
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "com.vanniktech:gradle-maven-publish-plugin:$mavenPublishVersion"
     }
 }
 
@@ -24,6 +27,8 @@ allprojects {
 subprojects {
     apply plugin: "idea"
     apply plugin: "io.spring.dependency-management"
+
+    version = "1.0.0"
 
     dependencyManagement {
         imports {

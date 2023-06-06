@@ -1,4 +1,7 @@
 apply plugin: "java-library"
+apply plugin: "com.vanniktech.maven.publish"
+
+archivesBaseName = "retrofit-spring-boot-starter"
 
 dependencies {
     api "com.squareup.retrofit2:retrofit:$retrofitVersion"
